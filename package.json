@@ -40,11 +40,22 @@
   ],
   "keywords": [
     "claude",
+    "claude-code",
     "ai",
     "documentation",
     "setup",
-    "development"
+    "development",
+    "npx",
+    "cli"
   ],
-  "author": "Your Name",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/claude-setup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/claude-setup/issues"
+  },
+  "homepage": "https://github.com/yourusername/claude-setup#readme",
+  "author": "Your Name <your.email@example.com>",
   "license": "MIT"
 }
