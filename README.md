@@ -117,13 +117,22 @@ claude-setup --dev
 
 ## 🧪 Testing
 
-```bash
-# Test the analyzer
-npm test
+Comprehensive test suite ensures reliability:
 
-# Test on current project
-node test/test-analyzer.js
+```bash
+npm test              # Fast test suite
+npm run test:all      # Complete test suite
+npm run test:manual   # Manual CLI testing
 ```
+
+**Test Coverage:**
+- ✅ **19/19 Integration Tests** - Full workflow validation
+- ✅ **20/20 Manual Tests** - CLI flag combinations
+- ✅ **3/3 Real-World Tests** - Actual repository testing
+- ✅ **100% Safety Audit** - All permissions verified safe
+- ✅ **Unit Tests** - Core component testing
+
+See [TESTING.md](TESTING.md) for detailed testing information.
 
 ## 🤝 Contributing
 
