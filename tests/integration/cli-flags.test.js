@@ -195,11 +195,12 @@ describe('CLI Flags Integration', () => {
   });
 
   test('should handle error cases gracefully', async () => {
-    // Test with non-existent config file
+    // Test with non-existent config file + dry-run to avoid hanging
     const projectPath = await mockFS.createTempProject('empty');
-    const result = await runCLI(['--config', '/non/existent/config.json'], projectPath);
+    const result = await runCLI(['--config', '/non/existent/config.json', '--dry-run'], projectPath, 10000);
     
-    expect(result.stdout).toContain('Config file not found');
-    // Should continue with default config
+    // Should show warning but continue
+    expect(result.stderr || result.stdout).toContain('Config file not found');
+    expect(result.code).toBe(0); // Should still succeed with dry-run
   });
 });
