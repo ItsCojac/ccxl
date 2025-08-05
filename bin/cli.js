@@ -94,10 +94,36 @@ async function main() {
     }
 
   } catch (error) {
-    console.error(chalk.red.bold('\n❌ Setup failed:'), error.message);
-    if (options.dev || options.verbose) {
-      console.error(error.stack);
+    // Better error messages based on error type
+    if (error.message.includes('Settings validation failed')) {
+      console.error(chalk.red.bold('\n❌ Configuration Error:'));
+      console.error(chalk.yellow('Invalid settings detected:'));
+      console.error(error.message.replace('Settings validation failed:\n', ''));
+      console.error(chalk.gray('\nPlease check your configuration and try again.'));
+    } else if (error.code === 'ENOENT') {
+      console.error(chalk.red.bold('\n❌ File Not Found:'));
+      console.error(chalk.yellow(`Could not access: ${error.path || 'unknown file'}`));
+      console.error(chalk.gray('Please check the file path and permissions.'));
+    } else if (error.code === 'EACCES') {
+      console.error(chalk.red.bold('\n❌ Permission Denied:'));
+      console.error(chalk.yellow(`Access denied: ${error.path || 'unknown file'}`));
+      console.error(chalk.gray('Please check file permissions or run with appropriate privileges.'));
+    } else if (error.message.includes('Config file not found')) {
+      console.error(chalk.red.bold('\n❌ Configuration File Error:'));
+      console.error(chalk.yellow(error.message));
+      console.error(chalk.gray('Continuing with default configuration...'));
+      return; // Don't exit for missing config files
+    } else {
+      console.error(chalk.red.bold('\n❌ Setup failed:'), error.message);
     }
+    
+    if (options.dev || options.verbose) {
+      console.error(chalk.gray('\n🔍 Debug information:'));
+      console.error(error.stack);
+    } else {
+      console.error(chalk.gray('\nRun with --verbose for more details.'));
+    }
+    
     process.exit(1);
   }
 }
