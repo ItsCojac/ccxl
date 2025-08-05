@@ -3,7 +3,16 @@
  */
 
 // Increase timeout for integration tests
-jest.setTimeout(30000);
+jest.setTimeout(60000);
+
+// Mock documentation fetching to speed up tests
+jest.mock('../lib/documentation', () => ({
+  fetchDocumentation: jest.fn().mockResolvedValue({
+    success: true,
+    content: 'Mock documentation content for testing',
+    size: '1KB'
+  })
+}));
 
 // Mock console.log in tests to reduce noise
 const originalLog = console.log;

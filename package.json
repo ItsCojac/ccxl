@@ -50,12 +50,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/claude-setup.git"
+    "url": "git+https://github.com/itscojac/claude-setup.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/claude-setup/issues"
+    "url": "https://github.com/itscojac/claude-setup/issues"
   },
-  "homepage": "https://github.com/yourusername/claude-setup#readme",
-  "author": "Your Name <your.email@example.com>",
+  "homepage": "https://github.com/itscojac/claude-setup#readme",
+  "author": "ItsCojac",
   "license": "MIT"
 }

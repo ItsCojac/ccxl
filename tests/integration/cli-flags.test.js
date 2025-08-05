@@ -15,7 +15,7 @@ describe('CLI Flags Integration', () => {
     await mockFS.cleanup();
   });
 
-  function runCLI(args, cwd) {
+  function runCLI(args, cwd, timeout = 30000) {
     return new Promise((resolve, reject) => {
       const child = spawn('node', [path.join(__dirname, '../../bin/cli.js'), ...args], {
         cwd,
@@ -24,6 +24,16 @@ describe('CLI Flags Integration', () => {
 
       let stdout = '';
       let stderr = '';
+      let finished = false;
+
+      // Add timeout to prevent hanging
+      const timer = setTimeout(() => {
+        if (!finished) {
+          finished = true;
+          child.kill('SIGTERM');
+          reject(new Error(`CLI command timed out after ${timeout}ms`));
+        }
+      }, timeout);
 
       child.stdout.on('data', (data) => {
         stdout += data.toString();
@@ -34,10 +44,20 @@ describe('CLI Flags Integration', () => {
       });
 
       child.on('close', (code) => {
-        resolve({ code, stdout, stderr });
+        if (!finished) {
+          finished = true;
+          clearTimeout(timer);
+          resolve({ code, stdout, stderr });
+        }
       });
 
-      child.on('error', reject);
+      child.on('error', (err) => {
+        if (!finished) {
+          finished = true;
+          clearTimeout(timer);
+          reject(err);
+        }
+      });
     });
   }
 
