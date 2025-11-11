@@ -54,15 +54,36 @@ node bin/cli.js
 ## 🧠 What It Detects
 
 ### Languages
-- JavaScript/TypeScript (package.json)
-- Python (requirements.txt, pyproject.toml)
-- Go (go.mod)
-- Rust (Cargo.toml)
+- **JavaScript/TypeScript** - package.json, tsconfig.json
+- **Python** - requirements.txt, pyproject.toml
+- **Go** - go.mod, go.sum
+- **Rust** - Cargo.toml, Cargo.lock
 
-### Frameworks
-- **Frontend**: React, Vue, Angular, Svelte, Next.js, Nuxt.js
-- **Backend**: Express, Fastify, Django, Flask, FastAPI
-- **And more...**
+### Frontend Frameworks
+- **React** - React 19, Next.js, Remix
+- **Vue** - Vue 3, Nuxt.js
+- **Svelte** - SvelteKit
+- **Modern**: Astro, SolidJS, Qwik, Angular
+
+### Backend Frameworks
+- **Node.js**: Express, Fastify
+- **Python**: Django, Flask, FastAPI
+
+### Data & ORM Tools
+- **Prisma** - schema detection, migration tools
+- **Drizzle ORM** - config and schemas
+- **tRPC** - type-safe APIs
+
+### Build Tools & Package Managers
+- **Bundlers**: Vite, Webpack
+- **Package Managers**: npm, yarn, pnpm, bun (auto-detected)
+
+### Monorepo Support
+- **Turborepo** - turbo.json detection
+- **Nx** - nx.json detection
+- **pnpm workspaces** - pnpm-workspace.yaml
+- **Yarn workspaces** - package.json workspaces
+- **Lerna** - lerna.json (legacy)
 
 ### Project Structure
 - Source code organization
@@ -75,14 +96,60 @@ node bin/cli.js
 ```
 your-project/
 ├── .claude/
-│   ├── settings.json          # Claude configuration
-│   ├── settings.local.json    # Local permissions
-│   └── commands/              # Custom commands
+│   ├── settings.json          # Claude Code 2.0 configuration
+│   ├── settings.local.json    # Local overrides
+│   └── commands/              # Custom slash commands
+│       ├── generate-tests.md  # /generate-tests
+│       ├── plan-feature.md    # /plan-feature
+│       ├── review-code.md     # /review-code
+│       ├── fix-github-issue.md# /fix-github-issue
+│       ├── debug-logs.md      # /debug-logs
+│       └── refactor-code.md   # /refactor-code
 ├── CLAUDE.md                  # Project-specific context
 └── docs/
     ├── fetched/               # Framework documentation
     └── combined-docs.md       # All docs in one file
 ```
+
+## ⚡ Claude Code 2.0 Features
+
+### Smart Permission System
+ccxl generates Claude Code 2.0 settings with three permission tiers:
+
+**Allow** (No prompts - productive development)
+- File operations: `Read`, `Edit`, `Write`
+- Code navigation: `Glob`, `Grep`
+- Safe bash: `ls`, `cat`, `git status`, `git diff`, `npm list`
+- Documentation: `WebFetch`
+
+**Ask** (Confirmation required - potentially dangerous)
+- Package management: `npm install`, `yarn add`, `pnpm install`
+- Git commits: `git commit`, `git push`
+- Build/test: `npm run build`, `npm test`
+
+**Deny** (Blocked - dangerous operations)
+- Sensitive files: `.env`, `credentials.*`, `secrets/**`
+- Destructive: `rm`, `sudo`, `chmod`, `chown`
+- Exfiltration: `curl` (can leak data)
+
+### Automated Hooks
+For TypeScript projects, ccxl automatically configures:
+- **PostToolUse**: Type-checking after edits (`tsc --noEmit`)
+- **Prettier**: Code formatting after writes (if detected)
+
+Custom hooks can be added for:
+- Linting on file changes
+- Test runs on code edits
+- Auto-formatting with project tools
+
+### Custom Commands
+Six pre-built slash commands for common workflows:
+- **/generate-tests** - Comprehensive test generation
+- **/plan-feature** - Feature planning before implementation
+- **/review-code** - Security & quality review
+- **/fix-github-issue** - Systematic bug fixing
+- **/debug-logs** - Log analysis and diagnosis
+- **/refactor-code** - Safe code improvements
 
 ## 🔧 Command Options
 
