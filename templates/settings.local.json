@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "WebFetch(*)",
+      
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(touch:*)",
+      "Bash(echo:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(less:*)",
+      "Bash(wc:*)",
+      "Bash(file:*)",
+      
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(tree:*)",
+      "Bash(cd:*)",
+      "Bash(pwd:*)",
+      
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      
+      "Bash(open:*)",
+      "Bash(code:*)",
+      
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(node:*)",
+      "Bash(npx:*)",
+      "Bash(yarn:*)",
+      "Bash(pnpm:*)",
+      
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(pip install:*)",
+      "Bash(pip3 install:*)",
+      
+      "Bash(cargo:*)",
+      "Bash(go:*)",
+      
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git tag:*)",
+      "Bash(git remote:*)",
+      
+      "Bash(env:*)",
+      "Bash(whoami:*)",
+      "Bash(uname:*)",
+      "Bash(df:*)",
+      "Bash(ps:*)",
+      
+      "Bash(jq:*)",
+      "Bash(awk:*)",
+      "Bash(sed:*)",
+      
+      "Bash(docker ps:*)",
+      "Bash(docker images:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker-compose:*)"
+    ]
+  }
+}
