@@ -51,12 +51,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/itscojac/claude-setup.git"
+    "url": "git+https://github.com/itscojac/ccxl.git"
   },
   "bugs": {
-    "url": "https://github.com/itscojac/claude-setup/issues"
+    "url": "https://github.com/itscojac/ccxl/issues"
   },
-  "homepage": "https://github.com/itscojac/claude-setup#readme",
+  "homepage": "https://github.com/itscojac/ccxl#readme",
   "author": "ItsCojac",
   "license": "MIT"
 }
