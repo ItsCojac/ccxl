@@ -28,7 +28,21 @@
       "Bash(npm view:*)",
       "Read(package.json)",
       "Read(package-lock.json)",
-      "Read(tsconfig.json)"
+      "Read(tsconfig.json)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git branch --show-current:*)",
+      "Bash(git tag:*)",
+      "Bash(git remote:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m:*)",
+      "Bash(git stash:*)",
+      "Bash(git stash push:*)",
+      "Bash(git stash pop:*)",
+      "Bash(git stash list:*)"
     ],
     "ask": [
       "Bash(npm install:*)",
@@ -39,7 +53,12 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(npm run build:*)",
-      "Bash(npm run test:*)"
+      "Bash(npm run test:*)",
+      "Bash(git reset:*)",
+      "Bash(git clean:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git branch -D:*)"
     ],
     "deny": [
       "Read(.env*)",
@@ -53,8 +72,26 @@
       "Bash(sudo:*)",
       "Bash(curl:*)",
       "Bash(chmod:*)",
-      "Bash(chown:*)"
+      "Bash(chown:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean -fd:*)",
+      "Bash(git clean -fdx:*)"
     ],
     "defaultMode": "default"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"/Users/cojac/.claude/hooks/git-safety-check.sh\" \"$CLAUDE_TOOL_ARGS\"",
+            "timeout": 5,
+            "continueOnError": false
+          }
+        ]
+      }
+    ]
   }
 }
