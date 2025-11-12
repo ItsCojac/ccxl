@@ -70,7 +70,9 @@
       "Bash(chown:*)",
       "Bash(git reset --hard:*)",
       "Bash(git clean -fd:*)",
-      "Bash(git clean -fdx:*)"
+      "Bash(git clean -fdx:*)",
+      "Bash(eval:*)",
+      "Bash(exec:*)"
     ],
     "defaultMode": "default"
   },
@@ -84,6 +86,19 @@
             "command": "\"/Users/cojac/.claude/hooks/git-safety-check.sh\" \"$CLAUDE_TOOL_ARGS\"",
             "timeout": 5,
             "continueOnError": false
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"/Users/cojac/.claude/hooks/security-check.sh\" \"$CLAUDE_FILE_PATHS\"",
+            "timeout": 10,
+            "continueOnError": true
           }
         ]
       }
