@@ -1,6 +1,6 @@
 {
   "name": "ccxl",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "description": "ccxl (Claude Code XL) - Intelligent Claude Code setup for any project",
   "main": "lib/index.js",
   "bin": {
