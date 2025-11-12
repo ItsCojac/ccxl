@@ -5,11 +5,16 @@
 ## 🎉 **v2.0 - Rebuilt for Claude Code 2.0**
 
 **What's New:**
+- 🛡️ **Git Safety System** - Prevents data loss from destructive git operations (NEW!)
+  - Auto-blocks `git reset --hard`, `git clean -fd` if changes exist
+  - 4 safe git commands: `/safe-switch`, `/safe-commit`, `/safe-reset`, `/git-safety-status`
+  - Automatic backup branches before dangerous operations
+  - **Solves the #1 complaint: AI losing months of work**
 - ✅ **90% lighter** - Removed Puppeteer (200MB → 0MB) using Jina AI Reader
 - ✅ **Claude Code 2.0 compatible** - Updated permission format, hooks support
 - ✅ **Modern frameworks** - Added Astro, Remix, SvelteKit, Prisma, Drizzle, tRPC
 - ✅ **Node 20+** - Built for modern Node.js (ESM-ready)
-- ✅ **Zero breaking changes for users** - Same CLI, better internals
+- ✅ **Monorepo support** - Turborepo, Nx, pnpm/yarn workspaces
 
 **Upgrading from v1?** Run `npx ccxl@latest` - it auto-detects and migrates old configs.
 
@@ -150,6 +155,78 @@ Six pre-built slash commands for common workflows:
 - **/fix-github-issue** - Systematic bug fixing
 - **/debug-logs** - Log analysis and diagnosis
 - **/refactor-code** - Safe code improvements
+
+## 🛡️ Git Safety System (NEW in v2.0!)
+
+**The Problem:** AI assistants can run destructive git commands that lose months of work:
+- `git reset --hard` discards all uncommitted changes
+- `git clean -fd` deletes untracked files permanently
+- Branch switches without stashing lose work-in-progress
+- Partial commits leave important files uncommitted
+
+**The Solution:** ccxl installs a comprehensive git safety system that **prevents data loss before it happens**.
+
+### How It Works
+
+**1. Safety Hook (`~/.claude/hooks/git-safety-check.sh`)**
+- Runs automatically before EVERY git operation
+- Blocks dangerous commands if uncommitted changes exist
+- Auto-creates backup branches before risky operations
+- Shows clear error messages with safe alternatives
+
+**2. Safe Git Commands** (4 new slash commands)
+```bash
+/safe-switch <branch>       # Stash + switch branches safely
+/safe-commit "message"      # See ALL files before committing
+/safe-reset <commit>        # Auto-backup before reset
+/git-safety-status          # Comprehensive pre-flight check
+```
+
+**3. Three-Tier Permission System**
+- **Allow** (safe operations): `git status`, `git diff`, `git log`, `git stash`, `git add`
+- **Ask** (confirmation required): `git reset`, `git clean`, `git push --force`
+- **Deny** (blocked completely): `git reset --hard`, `git clean -fd`
+
+### Example: What Gets Blocked
+
+```bash
+# ❌ This would be BLOCKED (uncommitted changes exist):
+git reset --hard HEAD~1
+
+# ✅ Instead, you see:
+🚫 BLOCKED: Uncommitted changes detected
+
+Modified files:
+ M lib/important-feature.js
+ M lib/other-work.js
+
+Safe alternatives:
+  • git stash push -m 'before operation'
+  • /safe-reset HEAD~1  (creates backup first)
+  • /git-safety-status  (check full status)
+```
+
+### Example: Safe Branch Switch
+
+```bash
+/safe-switch feature-branch
+
+# Automatically:
+# 1. Shows uncommitted changes
+# 2. Stashes them with descriptive message
+# 3. Switches to target branch
+# 4. Shows how to recover stash
+```
+
+### What You Get
+
+✅ **Automatic backups** - Safety branches created before dangerous operations
+✅ **Full visibility** - See ALL files (staged/unstaged/untracked) before commits
+✅ **Clear guidance** - Error messages show safe alternatives
+✅ **Zero data loss** - Work is protected even if you make mistakes
+✅ **Recovery tools** - Commands to find and restore lost work
+
+The git safety system is **always active** once ccxl runs. No configuration needed.
 
 ## 🔧 Command Options
 
